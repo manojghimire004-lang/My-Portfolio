@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Manoj Ghimire · Economist. Builder. Visionary.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & ROOT
+═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --black:   #080707;
+  --coal:    #111010;
+  --iron:    #1c1a1a;
+  --smoke:   #2a2727;
+  --ash:     #3d3a3a;
+  --mist:    #6b6666;
+  --fog:     #a09898;
+  --paper:   #d4ccc0;
+  --gold:    #c9a84c;
+  --gold-lt: #e8c96e;
+  --gold-dk: #8c6f28;
+  --amber:   #e07b2a;
+  --cream:   #f0e8d8;
+  --red-acc: #c0392b;
+}
+
+body {
+  background: var(--black);
+  color: var(--paper);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ═══════════════════════════════════════════════
+   GRAIN OVERLAY
+═══════════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 300px;
+}
+
+/* ═══════════════════════════════════════════════
+   FLOATING BACKGROUND SYMBOLS
+═══════════════════════════════════════════════ */
+#particle-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0;
+  animation: floatUp linear infinite;
+  filter: blur(0.5px);
+  user-select: none;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  5%   { opacity: 0.12; }
+  90%  { opacity: 0.06; }
+  100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   LIGHT LEAKS
+═══════════════════════════════════════════════ */
+.light-leak {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(120px);
+  opacity: 0.07;
+  animation: pulse 8s ease-in-out infinite alternate;
+}
+.ll1 { width: 600px; height: 600px; background: var(--gold); top: -200px; right: -100px; }
+.ll2 { width: 500px; height: 500px; background: var(--amber); bottom: -100px; left: -150px; animation-delay: -4s; }
+.ll3 { width: 300px; height: 300px; background: #c0392b; top: 40%; left: 60%; animation-delay: -2s; opacity: 0.04; }
+
+@keyframes pulse {
+  from { transform: scale(1); opacity: 0.07; }
+  to   { transform: scale(1.2); opacity: 0.11; }
+}
+
+/* ═══════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold-dk); }
+
+/* ═══════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 3.5rem;
+  background: linear-gradient(to bottom, rgba(8,7,7,0.95) 0%, transparent 100%);
+}
+
+.nav-wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* ═══════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 3.5rem;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.hero-bg-text {
+  position: absolute;
+  bottom: -2rem; left: -1rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(10rem, 22vw, 22rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,168,76,0.07);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.8s ease both;
+}
+
+.hero-label::before {
+  content: '▶ ';
+  opacity: 0.6;
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 13vw, 13rem);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.hero h1 .name-accent {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--gold);
+}
+
+.hero-sub {
+  margin-top: 2rem;
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  font-style: italic;
+  color: var(--fog);
+  max-width: 42ch;
+  line-height: 1.7;
+  animation: fadeIn 1s ease 0.4s both;
+}
+
+.hero-sub strong {
+  color: var(--gold-lt);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.hero-cta-row {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  animation: fadeIn 1s ease 0.6s both;
+}
+
+.cta {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.85rem 2.2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s;
+  cursor: pointer; border: none;
+}
+
+.cta-gold {
+  background: var(--gold);
+  color: var(--black);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.cta-gold:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(201,168,76,0.3); }
+
+.cta-outline {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.4);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.cta-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); transform: translateY(-2px); }
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2.5rem; left: 3.5rem;
+  display: flex; align-items: center; gap: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--ash);
+  text-transform: uppercase;
+  animation: fadeIn 1.5s ease 1s both;
+}
+
+.scroll-line {
+  width: 60px; height: 1px;
+  background: linear-gradient(to right, var(--gold-dk), transparent);
+}
+
+/* ═══════════════════════════════════════════════
+   STATS BAR
+═══════════════════════════════════════════════ */
+.stats-bar {
+  position: relative; z-index: 10;
+  background: var(--iron);
+  border-top: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding: 2rem 3.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.stat {
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  gap: 0.4rem;
+  padding: 0 1rem;
+  border-right: 1px solid var(--smoke);
+}
+.stat:last-child { border-right: none; }
+
+.stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.stat-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION SCAFFOLD
+═══════════════════════════════════════════════ */
+section {
+  position: relative; z-index: 10;
+  padding: 7rem 3.5rem;
+}
+
+.sec-eyebrow {
+  display: flex; align-items: center; gap: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+.sec-eyebrow::after {
+  content: '';
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: var(--gold-dk);
+}
+
+h2.sec-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  line-height: 0.9;
+  margin-bottom: 3.5rem;
+}
+
+/* ═══════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════ */
+.about-section { background: var(--coal); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* PHOTO FRAME */
+.photo-frame {
+  position: relative;
+}
+
+.photo-frame .frame-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--iron);
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+.photo-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, var(--iron) 0%, var(--smoke) 100%);
+  color: var(--mist);
+  text-align: center;
+  padding: 2rem;
+}
+
+.photo-avatar {
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.photo-instruction {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  line-height: 1.8;
+}
+
+.photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(201,168,76,0.2);
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+  z-index: -1;
+}
+
+.photo-caption {
+  margin-top: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-align: center;
+}
+
+.gold-bar {
+  width: 40px; height: 3px;
+  background: var(--gold);
+  margin: 0.5rem auto 0;
+}
+
+.about-content {}
+
+.about-content p {
+  font-size: 1.1rem;
+  line-height: 1.95;
+  color: var(--fog);
+  margin-bottom: 1.3rem;
+}
+.about-content p strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.about-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.a-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--smoke);
+  color: var(--mist);
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.a-tag:hover { border-color: var(--gold); color: var(--gold); }
+.a-tag.lit { border-color: rgba(201,168,76,0.4); color: var(--gold-lt); }
+
+/* ═══════════════════════════════════════════════
+   PROJECTS
+═══════════════════════════════════════════════ */
+.projects-section {
+  background: var(--black);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--smoke);
+  border: 1px solid var(--smoke);
+}
+
+.proj-card {
+  background: var(--coal);
+  padding: 2.8rem 2.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.proj-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold-dk);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.proj-card:hover::before { transform: scaleX(1); }
+.proj-card:hover { background: var(--iron); }
+
+.proj-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: rgba(201,168,76,0.05);
+  line-height: 1;
+  position: absolute;
+  top: 1rem; right: 1.5rem;
+  pointer-events: none;
+  transition: color 0.3s;
+}
+
+.proj-card:hover .proj-num { color: rgba(201,168,76,0.1); }
+
+.proj-icon {
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
+.proj-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+
+.proj-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.proj-card p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--mist);
+  margin-bottom: 1.8rem;
+}
+
+.proj-stack {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  margin-bottom: 1.8rem;
+}
+
+.stack-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.55rem;
+  background: var(--smoke);
+  color: var(--mist);
+  text-transform: uppercase;
+}
+
+.proj-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  padding-bottom: 2px;
+  transition: border-color 0.2s, gap 0.2s;
+}
+.proj-link:hover { border-color: var(--gold); gap: 0.7rem; }
+
+/* ═══════════════════════════════════════════════
+   SKILLS
+═══════════════════════════════════════════════ */
+.skills-section { background: var(--coal); }
+
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.skill-col {
+  padding: 2.5rem;
+  border: 1px solid var(--smoke);
+  position: relative;
+  transition: border-color 0.3s;
+}
+
+.skill-col:hover { border-color: rgba(201,168,76,0.3); }
+
+.skill-col-head {
+  display: flex; align-items: center; gap: 0.8rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--smoke);
+}
+
+.skill-col-icon { font-size: 1.3rem; }
+
+.skill-col-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+}
+
+.skill-bars { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.skill-entry {}
+
+.skill-name-row {
+  display: flex; justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.sk-name {
+  font-size: 0.88rem;
+  color: var(--fog);
+}
+
+.sk-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold-dk);
+}
+
+.sk-track {
+  height: 2px;
+  background: var(--smoke);
+  position: relative;
+  overflow: hidden;
+}
+
+.sk-fill {
+  position: absolute;
+  top: 0; left: 0; height: 100%;
+  background: linear-gradient(to right, var(--gold-dk), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sk-fill.go { transform: scaleX(1); }
+
+/* ═══════════════════════════════════════════════
+   EDUCATION / TIMELINE
+═══════════════════════════════════════════════ */
+.edu-section { background: var(--black); }
+
+.edu-track {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 0 3rem;
+  max-width: 800px;
+}
+
+.edu-line {
+  grid-column: 1;
+  position: relative;
+  display: flex; flex-direction: column;
+  align-items: flex-end;
+}
+
+.edu-line::after {
+  content: '';
+  position: absolute;
+  right: -1.5rem;
+  top: 6px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--gold-dk), transparent);
+}
+
+.edu-year {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+.edu-content { padding-bottom: 3rem; position: relative; }
+
+.edu-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  position: absolute;
+  left: -3.48rem;
+  top: 4px;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+}
+
+.edu-content h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  margin-bottom: 0.25rem;
+}
+
+.edu-content .org {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.edu-content p {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--mist);
+}
+
+/* ═══════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════ */
+.contact-section {
+  background: var(--iron);
+  border-top: 1px solid rgba(201,168,76,0.12);
+  text-align: center;
+  padding: 8rem 3.5rem;
+}
+
+.contact-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.contact-section h2 span { color: var(--gold); }
+
+.contact-sub {
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--mist);
+  margin-bottom: 3.5rem;
+  max-width: 40ch;
+  margin-left: auto; margin-right: auto;
+  line-height: 1.7;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-bottom: 4rem;
+}
+
+.c-link {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+
+.c-link.primary {
+  background: var(--gold);
+  color: var(--black);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.c-link.primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(201,168,76,0.3); }
+
+.c-link.ghost {
+  border: 1px solid rgba(201,168,76,0.35);
+  color: var(--gold);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.c-link.ghost:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); transform: translateY(-2px); }
+
+.email-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--mist);
+  letter-spacing: 0.12em;
+}
+.email-display a { color: var(--gold-dk); text-decoration: none; }
+.email-display a:hover { color: var(--gold); }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+footer {
+  background: var(--black);
+  border-top: 1px solid var(--smoke);
+  padding: 1.8rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-dk);
+}
+
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: var(--ash);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ═══════════════════════════════════════════════
+   DIVIDER
+═══════════════════════════════════════════════ */
+.gold-divider {
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  margin: 2rem 0 3rem;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-layout { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .edu-track { grid-template-columns: 100px 1fr; gap: 0 2rem; }
+}
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 0 1.5rem; }
+  section { padding: 5rem 1.5rem; }
+  .stats-bar { grid-template-columns: 1fr 1fr; padding: 2rem 1.5rem; }
+  .stat:nth-child(2) { border-right: none; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+
+/* ═══════════════════════════════════════════════
+   CURSOR GLOW
+═══════════════════════════════════════════════ */
+#cursor-glow {
+  position: fixed;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  transition: opacity 0.3s;
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor glow -->
+<div id="cursor-glow"></div>
+
+<!-- Particle field -->
+<div id="particle-field"></div>
+
+<!-- Light leaks -->
+<div class="light-leak ll1"></div>
+<div class="light-leak ll2"></div>
+<div class="light-leak ll3"></div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#" class="nav-wordmark">MANOJ GHIMIRE</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="hero-bg-text">ECONOMIST</div>
+
+  <div class="hero-label">Truman State University · Economics · CS · Intl Relations</div>
+
+  <h1>
+    MANOJ
+    <span class="name-accent">GHIMIRE</span>
+  </h1>
+
+  <p class="hero-sub">
+    <strong>Economist. Builder. Visionary.</strong><br>
+    Turning raw data into policy insight. Bridging technology and emerging markets.
+    Building the tools that shape <strong>Nepal's future</strong> — one dataset at a time.
+  </p>
+
+  <div class="hero-cta-row">
+    <a href="#projects" class="cta cta-gold">► View Projects</a>
+    <a href="https://www.linkedin.com/in/manojghimire-892607233" target="_blank" rel="noopener" class="cta cta-outline">↗ LinkedIn</a>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ─── STATS BAR ─── -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-val">3.55</div>
+    <div class="stat-lbl">GPA</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">3</div>
+    <div class="stat-lbl">STEM OPT Years</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">3+</div>
+    <div class="stat-lbl">Live Projects</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">🇳🇵</div>
+    <div class="stat-lbl">Policy Vision</div>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section class="about-section" id="about">
+  <div class="sec-eyebrow">01 · About</div>
+  <h2 class="sec-title">THE<br>STORY</h2>
+
+  <div class="about-grid">
+    <!-- Photo -->
+    <div class="photo-frame reveal">
+      <div class="frame-inner">
+        <!--
+          ╔══════════════════════════════════╗
+          ║  REPLACE THIS WITH YOUR PHOTO    ║
+          ║  Use an <img> tag below:         ║
+          ║  <img src="photo.jpg"            ║
+          ║       alt="Manoj Ghimire"        ║
+          ║       style="width:100%;         ║
+          ║       height:100%;               ║
+          ║       object-fit:cover;">        ║
+          ╚══════════════════════════════════╝
+        -->
+        <div class="photo-placeholder">
+          <div class="photo-avatar">👤</div>
+          <div class="photo-instruction">
+            Replace this block<br>with your photo.<br>
+            Add photo.jpg to<br>your project folder,<br>
+            then swap in an &lt;img&gt; tag.
+          </div>
+        </div>
+      </div>
+      <div class="photo-caption">Manoj Ghimire · Kathmandu → Kirksville</div>
+      <div class="gold-bar"></div>
+    </div>
+
+    <!-- Text -->
+    <div class="about-content reveal">
+      <p>
+        I'm an international student from <strong>Kathmandu, Nepal</strong> — studying Economics
+        at Truman State University with minors in Computer Science and International Relations.
+        My GPA is 3.55. I work three jobs simultaneously while carrying a full course load.
+        That's not a flex — it's just <strong>the context</strong>.
+      </p>
+      <p>
+        What drives me is the intersection of <strong>data, policy, and emerging economies</strong>.
+        Most American econ grads know theory. I also know what it feels like when policy
+        decisions affect real families in real developing countries. That lived context
+        makes my analysis <strong>different</strong>.
+      </p>
+      <p>
+        I build tools. I analyze markets. I live-stream university athletics, shoot sports
+        photography, perform multilingual music in Hindi, Nepali, and Sanskrit, and
+        somewhere in between — <strong>I'm learning to shape Nepal's economic future</strong>.
+      </p>
+      <p>
+        3-Year STEM OPT after graduation. Summer 2027 internship target: consulting, policy
+        research, or international development. Long game: <strong>Ministry of Finance, Kathmandu</strong>.
+      </p>
+      <div class="about-tags">
+        <span class="a-tag lit">Econometrics</span>
+        <span class="a-tag lit">Data Analytics</span>
+        <span class="a-tag lit">Policy Research</span>
+        <span class="a-tag">SQL</span>
+        <span class="a-tag">Python</span>
+        <span class="a-tag">Tableau</span>
+        <span class="a-tag">AV Production</span>
+        <span class="a-tag">Music</span>
+        <span class="a-tag lit">Nepal 🇳🇵</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section class="projects-section" id="projects">
+  <div class="sec-eyebrow">02 · Projects</div>
+  <h2 class="sec-title">BUILT<br>THINGS</h2>
+
+  <div class="projects-grid">
+
+    <!-- Project 1 -->
+    <div class="proj-card reveal">
+      <div class="proj-num">01</div>
+      <span class="proj-icon">📊</span>
+      <div class="proj-cat">Data Analytics</div>
+      <h3>Social Media Performance Analyzer</h3>
+      <p>
+        An interactive dashboard that ingests engagement metrics from university social
+        platforms, surfaces trends, and generates performance reports — built from real
+        data tracked during my role at Columbus State.
+      </p>
+      <div class="proj-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Google Sheets</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">Matplotlib</span>
+      </div>
+      <a href="#" class="proj-link">View Project →</a>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="proj-card reveal">
+      <div class="proj-num">02</div>
+      <span class="proj-icon">🤖</span>
+      <div class="proj-cat">AI · Career Tech</div>
+      <h3>AI Career Hub</h3>
+      <p>
+        A Claude-powered career intelligence tool that analyzes job descriptions,
+        matches them to candidate profiles, and generates personalized action plans.
+        Built for students navigating their first professional roles.
+      </p>
+      <div class="proj-stack">
+        <span class="stack-tag">Claude API</span>
+        <span class="stack-tag">HTML/CSS/JS</span>
+        <span class="stack-tag">GitHub Pages</span>
+      </div>
+      <a href="#" class="proj-link">View Project →</a>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="proj-card reveal">
+      <div class="proj-num">03</div>
+      <span class="proj-icon">🌍</span>
+      <div class="proj-cat">Economic Research</div>
+      <h3>Climate × Economics Research</h3>
+      <p>
+        An interdisciplinary analysis of how climate variables correlate with
+        GDP growth and agricultural output in South Asian economies — using
+        World Bank data, FRED, and regression modeling in R.
+      </p>
+      <div class="proj-stack">
+        <span class="stack-tag">R</span>
+        <span class="stack-tag">World Bank API</span>
+        <span class="stack-tag">FRED</span>
+        <span class="stack-tag">Regression</span>
+      </div>
+      <a href="#" class="proj-link">View Research →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section class="skills-section" id="skills">
+  <div class="sec-eyebrow">03 · Skills</div>
+  <h2 class="sec-title">THE<br>ARSENAL</h2>
+
+  <div class="skills-layout">
+
+    <!-- Data -->
+    <div class="skill-col reveal">
+      <div class="skill-col-head">
+        <span class="skill-col-icon">📈</span>
+        <span class="skill-col-title">Data & Analytics</span>
+      </div>
+      <div class="skill-bars">
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Excel / Google Sheets</span><span class="sk-pct">88%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.88"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Python (pandas)</span><span class="sk-pct">70%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.70"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">SQL</span><span class="sk-pct">65%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.65"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Tableau / Power BI</span><span class="sk-pct">60%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.60"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Statistical Analysis</span><span class="sk-pct">75%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.75"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Economics -->
+    <div class="skill-col reveal">
+      <div class="skill-col-head">
+        <span class="skill-col-icon">💰</span>
+        <span class="skill-col-title">Economics</span>
+      </div>
+      <div class="skill-bars">
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Micro / Macroeconomics</span><span class="sk-pct">85%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.85"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Econometrics</span><span class="sk-pct">72%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.72"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Development Economics</span><span class="sk-pct">78%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.78"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Policy Research</span><span class="sk-pct">80%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.80"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Financial Analysis</span><span class="sk-pct">65%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.65"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech -->
+    <div class="skill-col reveal">
+      <div class="skill-col-head">
+        <span class="skill-col-icon">💻</span>
+        <span class="skill-col-title">Technology</span>
+      </div>
+      <div class="skill-bars">
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Python / C / C++</span><span class="sk-pct">70%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.70"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">HTML / CSS / JS</span><span class="sk-pct">75%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.75"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">AI Tools & Prompting</span><span class="sk-pct">85%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.85"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">AV / Live Streaming</span><span class="sk-pct">90%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.90"></div></div>
+        </div>
+        <div class="skill-entry">
+          <div class="skill-name-row"><span class="sk-name">Adobe Photoshop</span><span class="sk-pct">80%</span></div>
+          <div class="sk-track"><div class="sk-fill" data-w="0.80"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── EDUCATION ─── -->
+<section class="edu-section" id="education">
+  <div class="sec-eyebrow">04 · Education</div>
+  <h2 class="sec-title">THE<br>JOURNEY</h2>
+
+  <div class="edu-track">
+
+    <div class="edu-line reveal">
+      <div class="edu-year">2026–<br>2027</div>
+    </div>
+    <div class="edu-content reveal">
+      <div class="edu-dot"></div>
+      <h3>BS Economics (STEM)</h3>
+      <div class="org">Truman State University · Kirksville, MO</div>
+      <p>Major in Economics with minors in Computer Science and International Relations. GPA: 3.55.
+        Specializing in Econometrics, Mathematical Economics, and Development Economics.
+        Graduation target: December 2027. 3-Year STEM OPT eligible.</p>
+    </div>
+
+    <div class="edu-line reveal">
+      <div class="edu-year">2024–<br>2025</div>
+    </div>
+    <div class="edu-content reveal">
+      <div class="edu-dot"></div>
+      <h3>AS Computer Science</h3>
+      <div class="org">Columbus State Community College · Columbus, OH</div>
+      <p>Completed Associate's Degree in Computer Science while simultaneously serving as
+        Social Media Manager & Student Success Scholar — managing engagement analytics,
+        leading media teams, and building data tracking systems.</p>
+    </div>
+
+    <div class="edu-line reveal">
+      <div class="edu-year">2020–<br>2022</div>
+    </div>
+    <div class="edu-content reveal">
+      <div class="edu-dot"></div>
+      <h3>High School Science</h3>
+      <div class="org">Reliance International College · Kathmandu, Nepal 🇳🇵</div>
+      <p>Science track in Kathmandu. Developed foundational analytical thinking
+        before bringing those skills to the United States.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact-section" id="contact">
+  <div class="sec-eyebrow" style="justify-content:center; margin-bottom:1rem;">05 · Contact</div>
+  <h2>LET'S <span>TALK</span></h2>
+  <p class="contact-sub">
+    Open to internship opportunities, research collaborations, and conversations
+    about economics, data, AI strategy, and Nepal.
+  </p>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/manojghimire-892607233" target="_blank" rel="noopener" class="c-link primary">
+      ↗ Connect on LinkedIn
+    </a>
+    <a href="mailto:manojghimire.004@gmail.com" class="c-link ghost">
+      ✉ Send Email
+    </a>
+  </div>
+  <div class="email-display">
+    or reach me directly at <a href="mailto:manojghimire.004@gmail.com">manojghimire.004@gmail.com</a>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">MANOJ GHIMIRE</div>
+  <div class="footer-meta">Economist · Builder · Kathmandu → Kirksville → World</div>
+  <div class="footer-meta">© 2025 · All Rights Reserved</div>
+</footer>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+/* ── Floating particles ── */
+const SYMBOLS = ['💰','💻','📊','📈','🌏','🔬','💡','📉','🏦','⚡','🇳🇵','📐'];
+const field = document.getElementById('particle-field');
+
+function makeParticle() {
+  const el = document.createElement('div');
+  el.className = 'particle';
+  el.textContent = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+  el.style.left = Math.random() * 100 + 'vw';
+  const dur = 18 + Math.random() * 22;
+  el.style.animationDuration = dur + 's';
+  el.style.animationDelay = (Math.random() * -dur) + 's';
+  el.style.fontSize = (1 + Math.random() * 1.4) + 'rem';
+  field.appendChild(el);
+}
+
+for (let i = 0; i < 28; i++) makeParticle();
+
+/* ── Cursor glow ── */
+const glow = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top  = e.clientY + 'px';
+});
+
+/* ── Scroll reveal ── */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObs.observe(el));
+
+/* ── Skill bars ── */
+const fills = document.querySelectorAll('.sk-fill');
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = parseFloat(e.target.dataset.w);
+      e.target.style.width = (w * 100) + '%';
+      e.target.classList.add('go');
+      barObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+fills.forEach(f => barObs.observe(f));
+
+/* ── Active nav link ── */
+const sections = document.querySelectorAll('section[id], .about-section, .projects-section, .skills-section, .edu-section, .contact-section');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let cur = '';
+  document.querySelectorAll('[id]').forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 200) cur = sec.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : '';
+  });
+});
+</script>
+</body>
+</html>
